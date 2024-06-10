@@ -51,5 +51,6 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Eco-Run.sln"
+    "dotnet.defaultSolution": "Eco-Run.sln",
+    "CodeGPT.apiKey": "CodeGPT Plus Beta"
 }
