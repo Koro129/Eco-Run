@@ -9,18 +9,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float gravity = 10.0f; // Gravity
     [SerializeField] private float glideGravity = 1.0f; // Glide duration
     [SerializeField] private float slideDuration = 1.0f; // Slide duration
-    [SerializeField] private float slideSpeed = 5.0f; // Slide speed
     [SerializeField] private float groundDistance = 1.0f; // Ground distance
     [SerializeField] private LayerMask groundLayer; // Ground layer
     [SerializeField] private Transform feetpos;
+    [SerializeField] private Pistol pistol;
 
     private int currentLane = 1; // Current lane: 0 = top, 1 = middle, 2 = bottom
     private bool isJumping = false;
-    private bool isGliding = false;
     private bool isGrounded;
     private bool isSliding = false;
     private float slideTimer = 0f;
-    private bool spacePressed = false;
 
     private Rigidbody2D rb;
     private Vector3 startPosition; // Initial position of the player
@@ -55,6 +53,10 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.LeftShift) && !isJumping && !isSliding && IsGrounded())
         {
             StartSlide();
+        }
+        if (Input.GetMouseButtonDown(0))
+        {
+            Shoot();
         }
     }
 
@@ -122,6 +124,13 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void Shoot()
+    {
+        if (pistol != null)
+        {
+            pistol.Shoot();
+        }
+    }
     private bool IsGrounded()
     {
         isGrounded = Physics2D.OverlapCircle(feetpos.position, groundDistance, groundLayer);

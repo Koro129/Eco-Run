@@ -41,6 +41,7 @@ public class PlayerProgress : MonoBehaviour
 
     public void EnemyDefeated()
     {
+        Debug.Log("Enemy defeated!");
         enemiesDefeated++;
         Progress += 5f;
     }
