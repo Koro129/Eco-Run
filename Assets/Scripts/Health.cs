@@ -47,6 +47,7 @@ public class Health : MonoBehaviour
             {
                 // Perilaku ketika enemy mati
                 Destroy(gameObject);
+                // Debug.Log("enemy destroyed");
 
                 // Beritahu PlayerProgress bahwa musuh telah mati
                 if (PlayerProgress.instance != null)
