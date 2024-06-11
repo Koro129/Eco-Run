@@ -15,17 +15,9 @@ public class Health : MonoBehaviour
         currentHealth = startingHealth;
     }
 
-    // private void Update()
-    // {
-    //     if(Input.GetKeyDown(KeyCode.E))
-    //     {
-    //         TakeDamage(1);
-    //     }
-    // }
-    // Start is called before the first frame update
     public void TakeDamage(float _damage)
     {
-        if(!isInvincible)
+        if (!isInvincible)
         {
             currentHealth = Mathf.Clamp(currentHealth - _damage, 0, startingHealth);
             if (currentHealth > 0)
@@ -44,7 +36,24 @@ public class Health : MonoBehaviour
         if (!isDead)
         {
             isDead = true;
-            // Game Over
+
+            if (CompareTag("Player"))
+            {
+                // Perilaku ketika player mati
+                Debug.Log("Game Over");
+                // Tambahkan logika game over di sini
+            }
+            else if (CompareTag("Enemy"))
+            {
+                // Perilaku ketika enemy mati
+                Destroy(gameObject);
+
+                // Beritahu PlayerProgress bahwa musuh telah mati
+                if (PlayerProgress.instance != null)
+                {
+                    PlayerProgress.instance.EnemyDefeated();
+                }
+            }
         }
     }
 
@@ -56,19 +65,15 @@ public class Health : MonoBehaviour
 
     IEnumerator ChangeColorCoroutine()
     {
-        // Change color to red
         GetComponent<Renderer>().material.color = Color.red;
         yield return new WaitForSeconds(1f);
-        // Change color back to original
         GetComponent<Renderer>().material.color = Color.white;
     }
 
     IEnumerator MakeInvincibleCoroutine()
     {
-        // Set invincible to true
         isInvincible = true;
         yield return new WaitForSeconds(invincibleDuration);
-        // Set invincible back to false
         isInvincible = false;
     }
 }

@@ -99,12 +99,26 @@ public class PlayerController : MonoBehaviour
     {
         if (isSliding)
         {
+            if (!Input.GetKey(KeyCode.LeftShift))
+            {
+                isSliding = false;
+            }
+            // Debug.Log("Sliding");
             slideTimer -= Time.deltaTime;
 
             if (slideTimer <= 0)
             {
                 isSliding = false;
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (isSliding && other.CompareTag("Destroyable"))
+        {
+            Debug.Log("Collision with " + other.gameObject.name);
+            Destroy(other.gameObject);
         }
     }
 
