@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float startingHealth;
     [SerializeField] private float invincibleDuration;
+    [SerializeField] private int point;
     public float currentHealth { get; private set; }
     private bool isDead;
     private bool isInvincible;
@@ -43,16 +44,17 @@ public class Health : MonoBehaviour
                 Debug.Log("Game Over");
                 // Tambahkan logika game over di sini
             }
-            else if (CompareTag("Enemy"))
+            else if (CompareTag("Enemy") || CompareTag("Destroyable") || CompareTag("Coin"))
             {
                 // Perilaku ketika enemy mati
                 Destroy(gameObject);
-                // Debug.Log("enemy destroyed");
+                // Hurt();
+                Debug.Log("enemy destroyed");
 
                 // Beritahu PlayerProgress bahwa musuh telah mati
                 if (PlayerProgress.instance != null)
                 {
-                    PlayerProgress.instance.EnemyDefeated();
+                    PlayerProgress.instance.EnemyDefeated(point);
                 }
             }
         }
@@ -71,7 +73,7 @@ public class Health : MonoBehaviour
         GetComponent<Renderer>().material.color = Color.white;
     }
 
-    IEnumerator MakeInvincibleCoroutine()
+    public IEnumerator MakeInvincibleCoroutine()
     {
         isInvincible = true;
         yield return new WaitForSeconds(invincibleDuration);

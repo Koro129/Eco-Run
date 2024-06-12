@@ -1,18 +1,46 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Text;
 
+public enum GameState { Running, Pause };
 public class GameController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public PlayerController playerController;
+    public PauseMenu pauseMenu;
+    public GameState state;
+
+    private void Start()
     {
+        pauseMenu.OnPause += () =>
+        {
+            state = GameState.Pause;
+        };
+
+        pauseMenu.OnResume += () =>
+        {
+            if(state == GameState.Pause)
+            {
+                state = GameState.Running;
+            }
+        };
+
+
         
     }
-
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
+        if (state == GameState.Running)
+        {
+            playerController.HandleInput();
+        }
+
+        else if(state == GameState.Pause)
+        {
+            Debug.Log("Game is paused");   
+        }
         
     }
 }

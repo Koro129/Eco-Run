@@ -6,7 +6,9 @@ public class PlayerProgress : MonoBehaviour
 
     [SerializeField] private int enemiesDefeated;
     [SerializeField] private float progressIncreaseRate = 1f; // Progress increase rate per second
+    [SerializeField] private float destroyEnemiesAboveX = 10f; // Atur nilai x untuk menghancurkan musuh di atasnya
     public float Progress { get; private set; }
+
 
     private void Awake()
     {
@@ -35,14 +37,28 @@ public class PlayerProgress : MonoBehaviour
         if (Progress >= 100f)
         {
             Debug.Log("Win!");
+            DestroyEnemies();
             CancelInvoke(nameof(IncreaseProgress));
         }
     }
 
-    public void EnemyDefeated()
+    public void EnemyDefeated(int points)
     {
         Debug.Log("Enemy defeated!");
         enemiesDefeated++;
-        Progress += 5f;
+        Progress += points;
+    }
+
+    private void DestroyEnemies()
+    {
+        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        foreach (GameObject enemy in enemies)
+        {
+            if (enemy.transform.position.x > destroyEnemiesAboveX)
+            {
+                Destroy(enemy);
+            }
+        }
     }
 }

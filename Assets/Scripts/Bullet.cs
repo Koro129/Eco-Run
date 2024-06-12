@@ -4,26 +4,42 @@ public class Bullet : MonoBehaviour
 {
     private float range;
     private int damage;
-    private float speed; // tambahan parameter speed
+    private float speed;
+    private bool shootRight;
     private Vector2 direction;
     private float startTime;
 
-    public void Initialize(float range, int damage, float speed) // menambah parameter speed
+    // Initialize the bullet with the specified parameters
+    public void Initialize(float range, int damage, float speed, bool shootRight)
     {
         this.range = range;
         this.damage = damage;
-        this.speed = speed; // menyimpan speed yang diterima
+        this.speed = speed;
+        this.shootRight = shootRight;
         startTime = Time.time;
     }
 
+    // Set the direction of the bullet
     public void SetDirection(Vector2 direction)
     {
-        this.direction = direction.normalized * speed; // mengatur kecepatan berdasarkan arah
+        this.direction = direction.normalized * speed;
     }
 
     private void Update()
     {
-        transform.Translate(direction * Time.deltaTime); // menggunakan Translate untuk pergerakan
+        MoveBullet();
+        CheckRange();
+    }
+
+    // Move the bullet based on its direction and speed
+    private void MoveBullet()
+    {
+        transform.Translate(direction * Time.deltaTime);
+    }
+
+    // Check if the bullet has reached its maximum range
+    private void CheckRange()
+    {
         float distance = (Time.time - startTime) * speed;
         if (distance >= range)
         {
@@ -33,11 +49,13 @@ public class Bullet : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        // Debug.Log("Hit " + other.gameObject.name);
-        if (collision.CompareTag("Enemy"))
+        if (shootRight && collision.CompareTag("Enemy"))
         {
-            // Debug.Log("Enemy Hit");
-            // Destroy(collision.gameObject);
+            collision.gameObject.GetComponent<Health>().TakeDamage(damage);
+            Destroy(gameObject);
+        }
+        else if (!shootRight && collision.CompareTag("Player"))
+        {
             collision.gameObject.GetComponent<Health>().TakeDamage(damage);
             Destroy(gameObject);
         }

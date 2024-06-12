@@ -12,12 +12,13 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundDistance = 1.0f; // Ground distance
     [SerializeField] private LayerMask groundLayer; // Ground layer
     [SerializeField] private Transform feetpos;
-    [SerializeField] private Pistol pistol;
+    [SerializeField] private Gun gun;
 
     private int currentLane = 1; // Current lane: 0 = top, 1 = middle, 2 = bottom
     private bool isJumping = false;
     private bool isGrounded;
-    private bool isSliding = false;
+    // private bool isSliding = false;
+    public bool isSliding { get; private set; } = false;
     private float slideTimer = 0f;
 
     private Rigidbody2D rb;
@@ -31,12 +32,12 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        HandleInput();
+        // HandleInput();
         HandleSliding();
         HandleFalling();
     }
 
-    private void HandleInput()
+    public void HandleInput()
     {
         if (Input.GetKeyDown(KeyCode.W) && currentLane > 0 && !isJumping && !isSliding)
         {
@@ -117,20 +118,28 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        if (other.CompareTag("Coin"))
+        {
+            Debug.Log("Coin collected");
+            other.gameObject.GetComponent<Health>().TakeDamage(1);
+        }
+        
         if (isSliding && other.CompareTag("Destroyable"))
         {
             Debug.Log("Collision with " + other.gameObject.name);
-            Destroy(other.gameObject);
+            other.gameObject.GetComponent<Health>().TakeDamage(1);
+            // Destroy(other.gameObject);
         }
     }
 
     private void Shoot()
     {
-        if (pistol != null)
+        if (gun != null)
         {
-            pistol.Shoot();
+            gun.Shoot();
         }
     }
+    
     private bool IsGrounded()
     {
         isGrounded = Physics2D.OverlapCircle(feetpos.position, groundDistance, groundLayer);
