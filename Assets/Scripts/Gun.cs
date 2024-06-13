@@ -12,7 +12,7 @@ public class Gun : MonoBehaviour
 
     private float lastShootTime = 0f;
 
-    public void Shoot()
+    public void Shoot(int currentLane)
     {
         if (Time.time >= lastShootTime + (1f / rateOfFire))
         {
@@ -20,7 +20,7 @@ public class Gun : MonoBehaviour
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             if (bulletScript != null)
             {
-                bulletScript.Initialize(range, damage, bulletSpeed, shootRight);
+                bulletScript.Initialize(range, damage, bulletSpeed, shootRight, currentLane);
                 Vector2 direction = shootRight ? Vector2.right : Vector2.left;
                 bulletScript.SetDirection(direction);
             }

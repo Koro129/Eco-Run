@@ -14,20 +14,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform feetpos;
     [SerializeField] private Gun gun;
 
-    private int currentLane = 1; // Current lane: 0 = top, 1 = middle, 2 = bottom
+    public int currentLane { get; private set; }
+    public bool isSliding { get; private set; } = false;
+
     private bool isJumping = false;
     private bool isGrounded;
-    // private bool isSliding = false;
-    public bool isSliding { get; private set; } = false;
     private float slideTimer = 0f;
 
     private Rigidbody2D rb;
-    private Vector3 startPosition; // Initial position of the player
+    private Vector3 startPosition;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        startPosition = transform.position; // Store the initial position
+        startPosition = transform.position;
+        CurrentLane();
     }
 
     private void Update()
@@ -61,6 +62,23 @@ public class PlayerController : MonoBehaviour
         }
     }
 
+    private void CurrentLane()
+    {
+        if (transform.position.y < -30)
+        {
+            currentLane = 2;
+        }
+        else if (transform.position.y < -27)
+        {
+            currentLane = 1;
+        }
+        else
+        {
+            currentLane = 0;
+        }
+        Debug.Log("Current Lane set to: " + currentLane);
+    }
+
     private void ChangeLane(int direction)
     {
         currentLane += direction;
@@ -75,7 +93,6 @@ public class PlayerController : MonoBehaviour
         {
             if (Input.GetKey(KeyCode.Space) && isJumping)
             {
-
                 rb.velocity += Vector2.down * glideGravity * gravity * Time.deltaTime;
             }
             else
@@ -106,7 +123,6 @@ public class PlayerController : MonoBehaviour
             {
                 isSliding = false;
             }
-            // Debug.Log("Sliding");
             slideTimer -= Time.deltaTime;
 
             if (slideTimer <= 0)
@@ -118,31 +134,52 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.CompareTag("Coin"))
+        var otherScript = other.gameObject.GetComponent<ObjectMovement>();
+
+        if (otherScript != null)
         {
-            Debug.Log("Coin collected");
-            other.gameObject.GetComponent<Health>().TakeDamage(1);
-        }
-        
-        if (isSliding && other.CompareTag("Destroyable"))
-        {
-            Debug.Log("Collision with " + other.gameObject.name);
-            other.gameObject.GetComponent<Health>().TakeDamage(1);
-            // Destroy(other.gameObject);
+            var otherLane = otherScript.currentLane;
+
+            if (other.CompareTag("Coin") && currentLane == otherLane)
+            {
+                Debug.Log("Coin collected");
+                other.gameObject.GetComponent<Health>().TakeDamage(1);
+            }
+            
+            if (isSliding && other.CompareTag("Destroyable") && currentLane == otherLane)
+            {
+                Debug.Log("Collision with " + other.gameObject.name);
+                other.gameObject.GetComponent<Health>().TakeDamage(1);
+                // Destroy(other.gameObject);
+            }
         }
     }
-
+    
     private void Shoot()
     {
         if (gun != null)
         {
-            gun.Shoot();
+            gun.Shoot(currentLane);
         }
     }
     
     private bool IsGrounded()
     {
-        isGrounded = Physics2D.OverlapCircle(feetpos.position, groundDistance, groundLayer);
+        string groundTag = "Ground " + currentLane;
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(feetpos.position, groundDistance, groundLayer);
+
+        isGrounded = false;
+
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag(groundTag))
+            {
+                isGrounded = true;
+                break;
+            }
+        }
+
         if (isGrounded)
         {
             if (rb.velocity.y < 0)
@@ -151,6 +188,7 @@ public class PlayerController : MonoBehaviour
                 rb.velocity = new Vector2(rb.velocity.x, 0);
             }
         }
+
         return isGrounded;
     }
 }

@@ -865,7 +865,7 @@ GameObject:
   - component: {fileID: 578374333}
   m_Layer: 6
   m_Name: Path
-  m_TagString: Ground
+  m_TagString: Ground 0
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -999,6 +999,8 @@ MonoBehaviour:
   attackDamage: 1
   gun: {fileID: 0}
   shootInterval: 1
+  objectMovement: {fileID: 642155994}
+  currentLane: 0
 --- !u!212 &642155996
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1169,7 +1171,7 @@ GameObject:
   - component: {fileID: 698838472}
   m_Layer: 6
   m_Name: Path (2)
-  m_TagString: Ground
+  m_TagString: Ground 2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12935,7 +12937,7 @@ GameObject:
   - component: {fileID: 1975394037}
   m_Layer: 6
   m_Name: Path (1)
-  m_TagString: Ground
+  m_TagString: Ground 1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13341,7 +13343,7 @@ Transform:
   m_GameObject: {fileID: 2059900315}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.26, y: -28.5, z: 0}
+  m_LocalPosition: {x: -7.26, y: -31.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:

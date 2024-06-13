@@ -4,10 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Ground
   - Destroyable
   - Enemy
   - Coin
+  - Ground 0
+  - Ground 1
+  - Ground 2
   layers:
   - Default
   - TransparentFX

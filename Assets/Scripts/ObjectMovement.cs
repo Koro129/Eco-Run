@@ -8,6 +8,7 @@ public class ObjectMovement : MonoBehaviour
     [SerializeField] private bool reset = false;
     [SerializeField] private float resetXPosition = -10f; // Atur nilai x yang menjadi batas untuk mereset
     private Vector3 startPosition;
+    public int currentLane { get; private set; }
 
     private void Start()
     {
@@ -30,9 +31,32 @@ public class ObjectMovement : MonoBehaviour
         }
     }
 
+    private int GetCurrentLane(string tag)
+    {
+        switch (tag)
+        {
+            case "Ground 0":
+                return 0;
+            case "Ground 1":
+                return 1;
+            case "Ground 2":
+                return 2;
+            default:
+                return 1; // Default to middle lane if tag is not recognized
+        }
+    }
+
     private void ResetPosition()
     {
         transform.position = startPosition;
         reset = false; // Setelah reset, kembalikan nilai reset menjadi false
+    }
+
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.CompareTag("Ground 0") || other.CompareTag("Ground 1") || other.CompareTag("Ground 2"))
+        {
+            currentLane = GetCurrentLane(other.tag);
+        }
     }
 }

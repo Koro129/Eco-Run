@@ -4,8 +4,9 @@ public class EnemyAttack : MonoBehaviour
 {
     [SerializeField] private float attackDamage;
     [SerializeField] private Gun gun;
-
     [SerializeField] private float shootInterval = 1f;
+    [SerializeField] private ObjectMovement objectMovement;
+    public int currentLane;
 
     private void Start()
     {
@@ -17,20 +18,30 @@ public class EnemyAttack : MonoBehaviour
 
     private void Shoot()
     {
-        gun?.Shoot();
+        gun?.Shoot(currentLane);
     }
 
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            if (CompareTag("Destroyable") && collision.gameObject.GetComponent<PlayerController>().isSliding)
-            {
-                return;
-            }
+        currentLane = objectMovement.currentLane;
 
-            collision.gameObject.GetComponent<Health>().TakeDamage(attackDamage);
-            Debug.Log("Attacking object: " + collision.gameObject.name);
+        var otherScript = other.gameObject.GetComponent<PlayerController>();
+
+        if (otherScript != null)
+        {
+            var otherLane = otherScript.currentLane;
+
+            if (currentLane == otherLane && other.gameObject.CompareTag("Player"))
+            {
+                Debug.Log("Player at lane " + currentLane + " is hit by " + gameObject.name + " at lane " + otherLane);
+                
+                if (CompareTag("Destroyable") && other.gameObject.GetComponent<PlayerController>().isSliding)
+                {
+                    return;
+                }
+
+                other.gameObject.GetComponent<Health>().TakeDamage(attackDamage);
+            }
         }
     }
 }
