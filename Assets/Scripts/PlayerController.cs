@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    #region Variables
     [SerializeField] private float laneDistance = 2.0f; // Distance between lanes
     [SerializeField] private float jumpForce = 5.0f; // Jump force
     [SerializeField] private float gravity = 10.0f; // Gravity
@@ -22,12 +23,11 @@ public class PlayerController : MonoBehaviour
     private float slideTimer = 0f;
 
     private Rigidbody2D rb;
-    private Vector3 startPosition;
+    #endregion
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
-        startPosition = transform.position;
         CurrentLane();
     }
 
@@ -162,7 +162,7 @@ public class PlayerController : MonoBehaviour
             gun.Shoot(currentLane);
         }
     }
-    
+
     private bool IsGrounded()
     {
         string groundTag = "Ground " + currentLane;

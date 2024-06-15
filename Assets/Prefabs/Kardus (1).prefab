@@ -106,6 +106,7 @@ MonoBehaviour:
   attackDamage: 3
   gun: {fileID: 0}
   shootInterval: 1
+  startShootPositionX: 0.5
   objectMovement: {fileID: 3494847212708365043}
   currentLane: 0
 --- !u!114 &2163823348891743859
@@ -140,8 +141,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 3
-  reset: 0
-  resetXPosition: -8
 --- !u!114 &2635453035920959645
 MonoBehaviour:
   m_ObjectHideFlags: 0

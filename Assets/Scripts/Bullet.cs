@@ -54,17 +54,25 @@ public class Bullet : MonoBehaviour
         {
             if (other.CompareTag("Enemy") && currentLane == other.gameObject.GetComponent<ObjectMovement>().currentLane)
             {
-                other.gameObject.GetComponent<Health>().TakeDamage(damage);
-                Destroy(gameObject);
+                Health healthComponent = other.gameObject.GetComponent<Health>();
+                if (healthComponent != null)
+                {
+                    healthComponent.TakeDamage(damage);
+                    Destroy(gameObject);
+                }
             }
         }
         else
         {
             if (other.CompareTag("Player") && currentLane == other.gameObject.GetComponent<PlayerController>().currentLane)
             {
-                other.gameObject.GetComponent<Health>().TakeDamage(damage);
-                Destroy(gameObject);
+                Health healthComponent = other.gameObject.GetComponent<Health>();
+                if (healthComponent != null)
+                {
+                    healthComponent.TakeDamage(damage);
+                    Destroy(gameObject);
+                }
             }
-        }    
+        }
     }
 }
