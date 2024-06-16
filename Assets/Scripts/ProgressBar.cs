@@ -8,7 +8,7 @@ public class ProgressBar : MonoBehaviour
     [SerializeField] private PlayerProgress playerProgress;
     [SerializeField] private Image currentProgressBar;
     private float totalProgress = 100f; // Total kemajuan yang diinginkan
-    private float maxScale = 3f; // Skala maksimum yang diinginkan
+    private float maxScale = 1f; // Skala maksimum yang diinginkan
 
     // Start is called before the first frame update
     void Start()

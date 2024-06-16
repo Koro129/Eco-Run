@@ -103,7 +103,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: aded0746687f8cf4089f858b123ddba0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackDamage: 3
+  attackDamage: 1
   gun: {fileID: 0}
   shootInterval: 1
   startShootPositionX: 0.5
@@ -155,6 +155,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 1
   invincibleDuration: 0
+  hitlagDuration: 0
   point: 0
   destoryParticle: {fileID: 3745977859819253407, guid: 133c9e31559970b46b9697af3253aa84, type: 3}
 --- !u!61 &2121815632333968852

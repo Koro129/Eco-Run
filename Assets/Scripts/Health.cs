@@ -6,6 +6,7 @@ public class Health : MonoBehaviour
 {
     [SerializeField] private float startingHealth;
     [SerializeField] private float invincibleDuration;
+    [SerializeField] private float hitlagDuration;
     [SerializeField] private int point;
     [SerializeField] private GameObject destoryParticle;
     public float currentHealth { get; private set; }
@@ -41,9 +42,7 @@ public class Health : MonoBehaviour
 
             if (CompareTag("Player"))
             {
-                // Perilaku ketika player mati
                 Debug.Log("Game Over");
-                // Tambahkan logika game over di sini
             }
             else if (CompareTag("Enemy") || CompareTag("Destroyable") || CompareTag("Coin"))
             {
@@ -69,12 +68,20 @@ public class Health : MonoBehaviour
     {
         StartCoroutine(ChangeColorCoroutine());
         StartCoroutine(MakeInvincibleCoroutine());
+        StartCoroutine(HitlagCoroutine());
+    }
+
+    IEnumerator HitlagCoroutine()
+    {
+        Time.timeScale = 0f;
+        yield return new WaitForSecondsRealtime(hitlagDuration);
+        Time.timeScale = 1f;
     }
 
     IEnumerator ChangeColorCoroutine()
     {
         GetComponent<Renderer>().material.color = Color.red;
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(invincibleDuration);
         GetComponent<Renderer>().material.color = Color.white;
     }
 
