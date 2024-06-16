@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,8 +11,10 @@ public class Health : MonoBehaviour
     [SerializeField] private int point;
     [SerializeField] private GameObject destoryParticle;
     public float currentHealth { get; private set; }
+    public event Action OnPlayerDeath;
     private bool isDead;
     private bool isInvincible;
+
 
     void Awake()
     {
@@ -42,20 +45,15 @@ public class Health : MonoBehaviour
 
             if (CompareTag("Player"))
             {
+                Destroying();         
+                OnPlayerDeath?.Invoke();
                 Debug.Log("Game Over");
             }
             else if (CompareTag("Enemy") || CompareTag("Destroyable") || CompareTag("Coin"))
             {
                 // Perilaku ketika enemy mati
-                if (destoryParticle != null)
-                {
-                    Instantiate(destoryParticle, transform.position, Quaternion.identity);
-                }
-                Destroy(gameObject);
-                // Hurt();
+                Destroying();
                 Debug.Log("enemy destroyed");
-
-                // Beritahu PlayerProgress bahwa musuh telah mati
                 if (PlayerProgress.instance != null)
                 {
                     PlayerProgress.instance.EnemyDefeated(point);
@@ -71,6 +69,15 @@ public class Health : MonoBehaviour
         StartCoroutine(HitlagCoroutine());
     }
 
+    void Destroying()
+    {
+        if (destoryParticle != null)
+        {
+            Instantiate(destoryParticle, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
+    }
+    
     IEnumerator HitlagCoroutine()
     {
         Time.timeScale = 0f;

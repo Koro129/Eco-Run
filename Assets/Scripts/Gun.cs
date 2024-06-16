@@ -12,11 +12,13 @@ public class Gun : MonoBehaviour
 
     private float lastShootTime = 0f;
 
-    public void Shoot(int currentLane)
+    public void Shoot(int currentLane, Vector3? bulletPointPosition = null)
     {
         if (Time.time >= lastShootTime + (1f / rateOfFire))
         {
-            GameObject bullet = Instantiate(bulletPrefab, bulletPoint.position, Quaternion.identity);
+            Vector3 spawnPosition = bulletPointPosition ?? bulletPoint.position;
+            
+            GameObject bullet = Instantiate(bulletPrefab, spawnPosition, Quaternion.identity);
             Bullet bulletScript = bullet.GetComponent<Bullet>();
             if (bulletScript != null)
             {
@@ -27,4 +29,5 @@ public class Gun : MonoBehaviour
             lastShootTime = Time.time;
         }
     }
+
 }

@@ -1,4 +1,9 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System.Text;
 
 public class PlayerProgress : MonoBehaviour
 {
@@ -6,9 +11,10 @@ public class PlayerProgress : MonoBehaviour
 
     [SerializeField] private int enemiesDefeated;
     [SerializeField] private float progressIncreaseRate = 1f; // Progress increase rate per second
-    [SerializeField] private float destroyEnemiesAboveX = 10f; // Atur nilai x untuk menghancurkan musuh di atasnya
-    public float Progress { get; private set; }
-
+    // [SerializeField] private float destroyEnemiesAboveX = 10f;
+    [SerializeField] private float progress; // Atur nilai x untuk menghancurkan musuh di atasnya
+    public float Progress { get { return progress; } private set { progress = value; } }
+    public event Action OnProgressFinished;
 
     private void Awake()
     {
@@ -37,28 +43,32 @@ public class PlayerProgress : MonoBehaviour
         if (Progress >= 100f)
         {
             Debug.Log("Win!");
-            DestroyEnemies();
+            // DestroyEnemies();
             CancelInvoke(nameof(IncreaseProgress));
+            OnProgressFinished?.Invoke();
         }
     }
 
     public void EnemyDefeated(int points)
     {
-        Debug.Log("Enemy defeated!");
+        // Debug.Log("Enemy defeated!");
         enemiesDefeated++;
-        Progress += points;
-    }
-
-    private void DestroyEnemies()
-    {
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-        foreach (GameObject enemy in enemies)
+        if(Progress < 100f)
         {
-            if (enemy.transform.position.x > destroyEnemiesAboveX)
-            {
-                Destroy(enemy);
-            }
+            Progress += points;
         }
     }
+
+    // private void DestroyEnemies()
+    // {
+    //     GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+    //     foreach (GameObject enemy in enemies)
+    //     {
+    //         if (enemy.transform.position.x > destroyEnemiesAboveX)
+    //         {
+    //             Destroy(enemy);
+    //         }
+    //     }
+    // }
 }
