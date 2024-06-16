@@ -7,6 +7,7 @@ public class Health : MonoBehaviour
     [SerializeField] private float startingHealth;
     [SerializeField] private float invincibleDuration;
     [SerializeField] private int point;
+    [SerializeField] private GameObject destoryParticle;
     public float currentHealth { get; private set; }
     private bool isDead;
     private bool isInvincible;
@@ -47,6 +48,10 @@ public class Health : MonoBehaviour
             else if (CompareTag("Enemy") || CompareTag("Destroyable") || CompareTag("Coin"))
             {
                 // Perilaku ketika enemy mati
+                if (destoryParticle != null)
+                {
+                    Instantiate(destoryParticle, transform.position, Quaternion.identity);
+                }
                 Destroy(gameObject);
                 // Hurt();
                 Debug.Log("enemy destroyed");

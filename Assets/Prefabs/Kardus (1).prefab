@@ -156,6 +156,7 @@ MonoBehaviour:
   startingHealth: 1
   invincibleDuration: 0
   point: 0
+  destoryParticle: {fileID: 3745977859819253407, guid: 133c9e31559970b46b9697af3253aa84, type: 3}
 --- !u!61 &2121815632333968852
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -5,12 +5,14 @@ using UnityEngine;
 public class PlayerController : MonoBehaviour
 {
     #region Variables
+    [SerializeField] private Animator animator;
     [SerializeField] private float laneDistance = 2.0f; // Distance between lanes
     [SerializeField] private float jumpForce = 5.0f; // Jump force
     [SerializeField] private float gravity = 10.0f; // Gravity
     [SerializeField] private float glideGravity = 1.0f; // Glide duration
     [SerializeField] private float slideDuration = 1.0f; // Slide duration
     [SerializeField] private float groundDistance = 1.0f; // Ground distance
+    [SerializeField] private GameObject groundParticle;
     [SerializeField] private LayerMask groundLayer; // Ground layer
     [SerializeField] private Transform feetpos;
     [SerializeField] private Gun gun;
@@ -106,13 +108,14 @@ public class PlayerController : MonoBehaviour
     {
         rb.velocity = new Vector2(rb.velocity.x, jumpForce);
         isJumping = true;
+        animator.SetBool("isJumping", true);
     }
 
     private void StartSlide()
     {
         isSliding = true;
         slideTimer = slideDuration;
-        // animator.SetTrigger("Slide");
+        animator.SetBool("isSliding", true);
     }
 
     private void HandleSliding()
@@ -122,12 +125,14 @@ public class PlayerController : MonoBehaviour
             if (!Input.GetKey(KeyCode.LeftShift))
             {
                 isSliding = false;
+                animator.SetBool("isSliding", false);
             }
             slideTimer -= Time.deltaTime;
 
             if (slideTimer <= 0)
             {
                 isSliding = false;
+                animator.SetBool("isSliding", false);
             }
         }
     }
@@ -185,6 +190,8 @@ public class PlayerController : MonoBehaviour
             if (rb.velocity.y < 0)
             {
                 isJumping = false;
+                animator.SetBool("isJumping", false);
+                Instantiate(groundParticle, feetpos.position, Quaternion.Euler(-90, 0, 0));
                 rb.velocity = new Vector2(rb.velocity.x, 0);
             }
         }
