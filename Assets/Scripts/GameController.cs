@@ -4,16 +4,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum GameState { Running, Pause, GameOver };
+public enum GameState { Running, Pause, GameOver, Finish };
 
 public class GameController : MonoBehaviour
 {
     [SerializeField] GameObject destroyer;
     [SerializeField] GameObject boss;
     [SerializeField] float bossDelay = 10f;
+    [SerializeField] float finishDelay = 10f;
     public PlayerController playerController;
     public PauseMenu pauseMenu;
     public GameOver gameOver;
+    public Finish finish;
     public GameState state;
 
     private void Start()
@@ -47,6 +49,16 @@ public class GameController : MonoBehaviour
                 gameOver.Over();
             };
         }
+
+        Health bossHealthComponent = boss.GetComponent<Health>();
+        
+        if (bossHealthComponent != null)
+        {
+            bossHealthComponent.OnBossDeath += () =>
+            {
+                StartCoroutine(FinishDelayed());
+            };
+        }
     }
 
     private void Update()
@@ -63,6 +75,10 @@ public class GameController : MonoBehaviour
         {
             gameOver.HandleInput();
         }
+        else if(state == GameState.Finish)
+        {
+            finish.HandleInput();
+        }
     }
 
 
@@ -74,8 +90,14 @@ public class GameController : MonoBehaviour
 
     private void SpawnBoss()
     {
-        boss.SetActive(true);
+        boss?.SetActive(true);
         Debug.Log("Boss spawned!");
     }
 
+    private IEnumerator FinishDelayed()
+    {
+        yield return new WaitForSeconds(finishDelay);
+        state = GameState.Finish;
+        finish.Show();
+    }
 }

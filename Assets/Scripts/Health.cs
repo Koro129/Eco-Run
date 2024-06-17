@@ -12,9 +12,9 @@ public class Health : MonoBehaviour
     [SerializeField] private GameObject destoryParticle;
     public float currentHealth { get; private set; }
     public event Action OnPlayerDeath;
+    public event Action OnBossDeath;
     private bool isDead;
     private bool isInvincible;
-
 
     void Awake()
     {
@@ -51,9 +51,13 @@ public class Health : MonoBehaviour
             }
             else if (CompareTag("Enemy") || CompareTag("Destroyable") || CompareTag("Coin"))
             {
-                // Perilaku ketika enemy mati
+                if (gameObject.layer == LayerMask.NameToLayer("Boss"))
+                {
+                    OnBossDeath?.Invoke();
+                }
+
                 Destroying();
-                Debug.Log("enemy destroyed");
+
                 if (PlayerProgress.instance != null)
                 {
                     PlayerProgress.instance.EnemyDefeated(point);

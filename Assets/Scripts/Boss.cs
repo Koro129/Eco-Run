@@ -6,8 +6,8 @@ public class Boss : MonoBehaviour
 {
     [SerializeField] private GameObject groundParticle;
     [SerializeField] private Gun gun;
-    [SerializeField] private List<Transform> bulletPoints;
     [SerializeField] private float shootInterval = 0.5f; // Interval between shots
+    [SerializeField] private List<Transform> bulletPoints;
 
     private float shootTimer;
 

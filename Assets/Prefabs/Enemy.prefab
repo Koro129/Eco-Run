@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9489d8149122e74798c876fd50582c0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 4391116573099879110, guid: ffa0833800924504c96df10fe94a8ed9, type: 3}
+  bulletPrefab: {fileID: 4391116573099879110, guid: 48d0729b557019342a5d1a41b498cbdf, type: 3}
   rateOfFire: 1
   bulletSpeed: 10
   range: 30
@@ -186,6 +186,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startingHealth: 1
   invincibleDuration: 0
+  hitlagDuration: 0
   point: 2
   destoryParticle: {fileID: 3745977859819253407, guid: 133c9e31559970b46b9697af3253aa84, type: 3}
 --- !u!61 &7750816250108053855

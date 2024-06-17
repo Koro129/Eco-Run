@@ -52,13 +52,19 @@ public class Bullet : MonoBehaviour
     {
         if (shootRight)
         {
-            if (other.CompareTag("Enemy") && currentLane == other.gameObject.GetComponent<ObjectMovement>().currentLane)
+            if (other.CompareTag("Enemy"))
             {
-                Health healthComponent = other.gameObject.GetComponent<Health>();
-                if (healthComponent != null)
+                // Periksa apakah objek adalah boss berdasarkan layer
+                bool isBoss = other.gameObject.layer == LayerMask.NameToLayer("Boss");
+
+                if (isBoss || currentLane == other.gameObject.GetComponent<ObjectMovement>().currentLane)
                 {
-                    healthComponent.TakeDamage(damage);
-                    Destroy(gameObject);
+                    Health healthComponent = other.gameObject.GetComponent<Health>();
+                    if (healthComponent != null)
+                    {
+                        healthComponent.TakeDamage(damage);
+                        Destroy(gameObject);
+                    }
                 }
             }
         }
