@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform feetpos;
     [SerializeField] private Gun gun;
 
-    public ParticleSystem dust;
+    // public ParticleSystem dust;
 
     public int currentLane { get; private set; }
     public bool isSliding { get; private set; } = false;
@@ -114,7 +114,7 @@ public class PlayerController : MonoBehaviour
 
     private void HandleFalling()
     {
-        if (!IsGrounded())
+        if (!IsGrounded() && !isChangingLane) // Add check for isChangingLane
         {
             if (Input.GetKey(KeyCode.Space) && isJumping)
             {
