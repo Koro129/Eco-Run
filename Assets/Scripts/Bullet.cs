@@ -70,7 +70,7 @@ public class Bullet : MonoBehaviour
         }
         else
         {
-            if (other.CompareTag("Player") && currentLane == other.gameObject.GetComponent<PlayerController>().currentLane)
+            if (other.CompareTag("Player"))
             {
                 Health healthComponent = other.gameObject.GetComponent<Health>();
                 if (healthComponent != null)

@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4391116573099879110, guid: 48d0729b557019342a5d1a41b498cbdf, type: 3}
-  rateOfFire: 1
+  rateOfFire: 0.5
   bulletSpeed: 10
   range: 30
   damage: 1
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c789e425636e4548975df1350a59ebb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 3
+  speed: 6
 --- !u!114 &2433419673978243883
 MonoBehaviour:
   m_ObjectHideFlags: 0

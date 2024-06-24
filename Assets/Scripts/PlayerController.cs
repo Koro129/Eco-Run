@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform feetpos;
     [SerializeField] private Gun gun;
 
+    public ParticleSystem dust;
+
     public int currentLane { get; private set; }
     public bool isSliding { get; private set; } = false;
 
@@ -81,12 +83,34 @@ public class PlayerController : MonoBehaviour
         Debug.Log("Current Lane set to: " + currentLane);
     }
 
+    private bool isChangingLane = false;
+    
     private void ChangeLane(int direction)
     {
+        if (isChangingLane) return;
+    
         currentLane += direction;
         Vector3 targetPosition = transform.position;
         targetPosition.y = transform.position.y - (direction * laneDistance);
+        StartCoroutine(MoveToPosition(targetPosition, 0.35f));
+    }
+    
+    private IEnumerator MoveToPosition(Vector3 targetPosition, float duration)
+    {
+        isChangingLane = true;
+        float elapsedTime = 0;
+        Vector3 startingPosition = transform.position;
+    
+        while (elapsedTime < duration)
+        {
+            transform.position = Vector3.Lerp(startingPosition, targetPosition, elapsedTime / duration);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+    
         transform.position = targetPosition;
+        Debug.Log("Lane changed to: " + currentLane);
+        isChangingLane = false;
     }
 
     private void HandleFalling()

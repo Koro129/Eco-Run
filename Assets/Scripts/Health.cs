@@ -45,8 +45,9 @@ public class Health : MonoBehaviour
 
             if (CompareTag("Player"))
             {
-                Destroying();         
                 OnPlayerDeath?.Invoke();
+                Hurt();
+                // Destroying(); 
                 Debug.Log("Game Over");
             }
             else if (CompareTag("Enemy") || CompareTag("Destroyable") || CompareTag("Coin"))
@@ -87,6 +88,10 @@ public class Health : MonoBehaviour
         Time.timeScale = 0f;
         yield return new WaitForSecondsRealtime(hitlagDuration);
         Time.timeScale = 1f;
+        if(isDead)
+        {
+            Destroying();
+        }
     }
 
     IEnumerator ChangeColorCoroutine()

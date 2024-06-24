@@ -19,6 +19,7 @@ public class GameOver : MonoBehaviour
 
     public void Over()
     {
+        Time.timeScale = 1f;
         Invoke("Show", gameOverDelay);
     }
 
