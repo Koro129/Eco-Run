@@ -171,10 +171,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6002039958888885243, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
-      propertyPath: startShootPositionX
-      value: 23
-      objectReference: {fileID: 0}
     - target: {fileID: 6644313374666850196, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_Name
       value: Enemy (5)
@@ -568,10 +564,6 @@ PrefabInstance:
     - target: {fileID: 2555104383192094398, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6002039958888885243, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
-      propertyPath: startShootPositionX
-      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 6644313374666850196, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_Name
@@ -1923,10 +1915,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6002039958888885243, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
-      propertyPath: startShootPositionX
-      value: 23
-      objectReference: {fileID: 0}
     - target: {fileID: 6644313374666850196, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_Name
       value: Enemy (7)
@@ -2865,10 +2853,6 @@ PrefabInstance:
     - target: {fileID: 2555104383192094398, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6002039958888885243, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
-      propertyPath: startShootPositionX
-      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 6644313374666850196, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_Name
@@ -5788,10 +5772,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6002039958888885243, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
-      propertyPath: startShootPositionX
-      value: 23
-      objectReference: {fileID: 0}
     - target: {fileID: 6644313374666850196, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_Name
       value: Enemy (4)
@@ -6015,10 +5995,6 @@ PrefabInstance:
     - target: {fileID: 2555104383192094398, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6002039958888885243, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
-      propertyPath: startShootPositionX
-      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 6644313374666850196, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_Name
@@ -7338,10 +7314,6 @@ PrefabInstance:
     - target: {fileID: 2555104383192094398, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6002039958888885243, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
-      propertyPath: startShootPositionX
-      value: 23
       objectReference: {fileID: 0}
     - target: {fileID: 6644313374666850196, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_Name
@@ -10156,8 +10128,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   destroyer: {fileID: 1043681793}
   boss: {fileID: 1078915736}
-  bossDelay: 6
-  finishDelay: 2
+  bossDelay: 5
+  finishDelay: 1.5
   playerController: {fileID: 2059900318}
   pauseMenu: {fileID: 1607085786}
   gameOver: {fileID: 1607085788}
@@ -15982,10 +15954,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6002039958888885243, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
-      propertyPath: startShootPositionX
-      value: 23
-      objectReference: {fileID: 0}
     - target: {fileID: 6644313374666850196, guid: e4b7dcffad1aee44080d22a1efd63aca, type: 3}
       propertyPath: m_Name
       value: Enemy (9)
@@ -17067,7 +17035,7 @@ MonoBehaviour:
   laneDistance: 3
   jumpForce: 6
   gravity: 17
-  glideGravity: 0.85
+  glideGravity: 0.8
   slideDuration: 1
   groundDistance: 0.1
   groundParticle: {fileID: 7112971812807077698, guid: efe882b715d90ce43b9d07f54273d6a2, type: 3}

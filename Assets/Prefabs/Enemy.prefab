@@ -136,8 +136,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDamage: 1
   gun: {fileID: 5201227376654519833}
-  shootInterval: 1
-  startShootPositionX: 22
+  shootInterval: 2.5
+  startShootPositionX: 20
   objectMovement: {fileID: 7709937111072589347}
   currentLane: 0
 --- !u!114 &5201227376654519833
@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 4391116573099879110, guid: 48d0729b557019342a5d1a41b498cbdf, type: 3}
-  rateOfFire: 0.5
+  rateOfFire: 2
   bulletSpeed: 10
   range: 30
   damage: 1

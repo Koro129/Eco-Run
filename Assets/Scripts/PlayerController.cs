@@ -109,7 +109,6 @@ public class PlayerController : MonoBehaviour
         }
     
         transform.position = targetPosition;
-        Debug.Log("Lane changed to: " + currentLane);
         isChangingLane = false;
     }
 
@@ -171,15 +170,12 @@ public class PlayerController : MonoBehaviour
 
             if (other.CompareTag("Coin") && currentLane == otherLane)
             {
-                Debug.Log("Coin collected");
                 other.gameObject.GetComponent<Health>().TakeDamage(1);
             }
             
             if (isSliding && other.CompareTag("Destroyable") && currentLane == otherLane)
             {
-                Debug.Log("Collision with " + other.gameObject.name);
                 other.gameObject.GetComponent<Health>().TakeDamage(1);
-                // Destroy(other.gameObject);
             }
         }
     }

@@ -27,6 +27,7 @@ public class EnemyAttack : MonoBehaviour
 
     private void Shoot()
     {
+        currentLane = objectMovement.currentLane;
         gun?.Shoot(currentLane);
     }
 
