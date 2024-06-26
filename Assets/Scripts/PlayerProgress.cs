@@ -1,20 +1,16 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using System.Text;
 
 public class PlayerProgress : MonoBehaviour
 {
     public static PlayerProgress instance;
 
     [SerializeField] private int enemiesDefeated;
-    [SerializeField] private float progressIncreaseRate = 1f; // Progress increase rate per second
-    // [SerializeField] private float destroyEnemiesAboveX = 10f;
-    [SerializeField] private float progress; // Atur nilai x untuk menghancurkan musuh di atasnya
+    [SerializeField] private float progressIncreaseRate = 1f; // Tingkat peningkatan progress per detik
+    [SerializeField] private float progress; // Nilai progress
     public float Progress { get { return progress; } private set { progress = value; } }
-    public event Action OnProgressFinished;
+    public event Action<float> OnProgressChanged; // Event untuk memberi tahu perubahan progress
+    public event Action OnProgressFinished; // Event untuk memberi tahu progress mencapai nilai maksimal
 
     private void Awake()
     {
@@ -33,17 +29,17 @@ public class PlayerProgress : MonoBehaviour
 
     private void Start()
     {
-        InvokeRepeating(nameof(IncreaseProgress), 1f, 1f); // Invoke IncreaseProgress every second
+        InvokeRepeating(nameof(IncreaseProgress), 1f, 1f); // Panggil IncreaseProgress setiap detik
     }
 
     private void IncreaseProgress()
     {
         Progress += progressIncreaseRate;
+        OnProgressChanged?.Invoke(Progress); // Panggil event OnProgressChanged untuk memberi tahu perubahan progress
 
         if (Progress >= 100f)
         {
             Debug.Log("Win!");
-            // DestroyEnemies();
             CancelInvoke(nameof(IncreaseProgress));
             OnProgressFinished?.Invoke();
         }
@@ -51,24 +47,11 @@ public class PlayerProgress : MonoBehaviour
 
     public void EnemyDefeated(int points)
     {
-        // Debug.Log("Enemy defeated!");
         enemiesDefeated++;
-        if(Progress < 100f)
+        if (Progress < 100f)
         {
             Progress += points;
+            OnProgressChanged?.Invoke(Progress); // Panggil event OnProgressChanged untuk memberi tahu perubahan progress
         }
     }
-
-    // private void DestroyEnemies()
-    // {
-    //     GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-
-    //     foreach (GameObject enemy in enemies)
-    //     {
-    //         if (enemy.transform.position.x > destroyEnemiesAboveX)
-    //         {
-    //             Destroy(enemy);
-    //         }
-    //     }
-    // }
 }

@@ -4,7 +4,7 @@ public class Gun : MonoBehaviour
 {
     [SerializeField] private GameObject bulletPrefab;
     [SerializeField] private float rateOfFire = 1f;
-    [SerializeField] private float bulletSpeed = 10f;
+    [SerializeField] public float bulletSpeed = 10f;
     [SerializeField] private float range = 10f;
     [SerializeField] private int damage = 10;
     [SerializeField] private Transform bulletPoint;
