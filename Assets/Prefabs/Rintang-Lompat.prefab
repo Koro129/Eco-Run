@@ -171,8 +171,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 5
-  speedIncreasePerUnit: 1
-  speedIncreaseInterval: 10
+  speedIncreasePerUnit: 2
+  speedIncreaseInterval: 15
 --- !u!61 &6848900474660242258
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -172,8 +172,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   baseSpeed: 5
-  speedIncreasePerUnit: 1
-  speedIncreaseInterval: 10
+  speedIncreasePerUnit: 2
+  speedIncreaseInterval: 15
 --- !u!114 &2433419673978243883
 MonoBehaviour:
   m_ObjectHideFlags: 0
